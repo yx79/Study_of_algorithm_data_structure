@@ -1,2 +1,2 @@
-# hackerrank-30-days-of-code
-hackerrank-30-days-of-code
+# My study notes of algorithm
+Go GO GO!
