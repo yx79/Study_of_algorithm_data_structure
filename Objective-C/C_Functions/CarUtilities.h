@@ -1,6 +1,6 @@
 //
 //  CarUtilities.h
-//  Methods
+//  Functions
 //
 //  Function Libraries
 

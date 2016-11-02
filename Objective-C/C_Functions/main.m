@@ -1,6 +1,6 @@
 //
 //  main.m
-//  Methods
+//  Functions
 //
 //  Objective-C relies entirely on the C programming language for functions
 //  Copyright © 2016 Yuanjie Xie. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  CarUtilities.m
-//  Methods
+//  Functions
 //
 //  The corresponding implementation file defines what these functions actually do.
 
