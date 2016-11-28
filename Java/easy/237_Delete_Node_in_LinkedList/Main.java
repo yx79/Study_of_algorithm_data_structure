@@ -15,6 +15,7 @@ after calling your function.
 public class Main {
 
     public static void deleteNode(ListNode node) {
+        // copy the next node's value to curr's, and set node.next = node.next.next;
         ListNode next = node.next;
         node.val = next.val;
         node.next = node.next.next;
