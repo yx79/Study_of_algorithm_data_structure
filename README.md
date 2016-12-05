@@ -1,2 +1,2 @@
-# My study notes of algorithm
-Go GO GO!
+# My study notes of algorithm and data structure
+GO GO GO!
