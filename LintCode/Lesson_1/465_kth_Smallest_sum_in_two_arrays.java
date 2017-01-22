@@ -29,11 +29,8 @@ Medium Kth Smallest Number in Sorted Matrix 22 %
 Medium Search a 2D Matrix II
 */
 
-
-
-
 public class Solution {
-    public class Tuple{
+    public class Tuple {
         public int i, j, val;
         public Tuple (int i, int j, int val) {
             this.i = i;
@@ -41,39 +38,37 @@ public class Solution {
             this.val = val;
         }
     }
-    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
-        // [],[],0 corner case
-        if (nums1 == null || nums2 == null || k == 0 || nums1.length == 0 || nums2.length == 0) {
-            return new ArrayList<>();
+    /**
+     * @param A an integer arrays sorted in ascending order
+     * @param B an integer arrays sorted in ascending order
+     * @param k an integer
+     * @return an integer
+     */
+    public int kthSmallestSum(int[] A, int[] B, int k) {
+        // null corner case
+        if (A == null || B == null || k == 0 || A.length == 0 || B.length == 0) {
+            return 0;
         }
-        int N = nums1.length, M = nums2.length, max = N * M;
-        
-        // special case  [1,1,2], [1,2,3] k == 10
-        if (k > max) {
-            k = max;
+        int M = A.length, N = B.length;
+        PriorityQueue<Tuple> queue = new PriorityQueue<Tuple>(M, new Comparator<Tuple>() {
+            @Override
+            public int compare(Tuple a, Tuple b) {
+                return a.val - b.val;
+            }
+        });
+        for (int i = 0; i < M; i++) {
+            queue.add(new Tuple(i, 0, A[i] + B[0]));
         }
-        PriorityQueue<Tuple> queue = new PriorityQueue<Tuple>(N, new Comparator<Tuple>(){
-                @Override
-                public int compare(Tuple a, Tuple b) {
-                    return a.val - b.val;
-                }
-            });
-        for (int i = 0; i < N; i++) {
-            queue.add(new Tuple(i, 0, nums1[i] + nums2[0]));
-        }
-        
-        List<int[]> ans = new ArrayList<>();
-        for (int j = 0; j < k; j++) {
-            int[] list = new int[2];
+        for (int j = 0; j < k - 1; j++) {
             Tuple temp = queue.poll();
-            list[0] = nums1[temp.i];
-            list[1] = nums2[temp.j];
-            ans.add(list);
-            if (temp.j + 1 == M) {
+            int a = temp.i;
+            int b = temp.j;
+            if (b == N - 1) {
                 continue;
             }
-            queue.add(new Tuple(temp.i, temp.j + 1, nums1[temp.i] + nums2[temp.j + 1]));
+            queue.add(new Tuple(a, b + 1, A[a] + B[b + 1]));
         }
-        return ans;
+        return queue.poll().val;
+        
     }
 }
