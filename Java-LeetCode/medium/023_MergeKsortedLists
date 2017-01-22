@@ -1,3 +1,53 @@
 /*
 23. Merge k Sorted Lists   
+
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+Hide Company Tags LinkedIn Google Uber Airbnb Facebook Twitter Amazon Microsoft
+Hide Tags Divide and Conquer Linked List Heap
+Hide Similar Problems (E) Merge Two Sorted Lists (M) Ugly Number II
+
+
 */
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        int k = lists.length;
+        if (lists == null || k < 1) {
+            return null;
+        }
+        PriorityQueue<ListNode> queue = new PriorityQueue<ListNode>(k, new Comparator<ListNode>(){
+                @Override
+                public int compare(ListNode a, ListNode b) {
+                    return a.val - b.val;
+                }
+            });
+        for (int i = 0; i < k; i++) {
+            if (lists[i] != null) {
+                queue.add(lists[i]);
+            }
+        }
+        
+        // Add next node after it got poll() 
+        ListNode dummy = new ListNode(0), cur = dummy;
+        while (!queue.isEmpty()) {
+            cur.next = queue.poll();
+            cur = cur.next;
+            if (cur.next != null) {
+                queue.add(cur.next);
+            }
+        }
+        
+        return dummy.next;
+    }
+}
