@@ -28,3 +28,52 @@ Related Problems
 Medium Kth Smallest Number in Sorted Matrix 22 %
 Medium Search a 2D Matrix II
 */
+
+
+
+
+public class Solution {
+    public class Tuple{
+        public int i, j, val;
+        public Tuple (int i, int j, int val) {
+            this.i = i;
+            this.j = j;
+            this.val = val;
+        }
+    }
+    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        // [],[],0 corner case
+        if (nums1 == null || nums2 == null || k == 0 || nums1.length == 0 || nums2.length == 0) {
+            return new ArrayList<>();
+        }
+        int N = nums1.length, M = nums2.length, max = N * M;
+        
+        // special case  [1,1,2], [1,2,3] k == 10
+        if (k > max) {
+            k = max;
+        }
+        PriorityQueue<Tuple> queue = new PriorityQueue<Tuple>(N, new Comparator<Tuple>(){
+                @Override
+                public int compare(Tuple a, Tuple b) {
+                    return a.val - b.val;
+                }
+            });
+        for (int i = 0; i < N; i++) {
+            queue.add(new Tuple(i, 0, nums1[i] + nums2[0]));
+        }
+        
+        List<int[]> ans = new ArrayList<>();
+        for (int j = 0; j < k; j++) {
+            int[] list = new int[2];
+            Tuple temp = queue.poll();
+            list[0] = nums1[temp.i];
+            list[1] = nums2[temp.j];
+            ans.add(list);
+            if (temp.j + 1 == M) {
+                continue;
+            }
+            queue.add(new Tuple(temp.i, temp.j + 1, nums1[temp.i] + nums2[temp.j + 1]));
+        }
+        return ans;
+    }
+}
