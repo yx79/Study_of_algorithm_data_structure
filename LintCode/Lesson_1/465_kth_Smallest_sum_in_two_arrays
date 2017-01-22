@@ -3,7 +3,7 @@
 373. Find K Pairs with Smallest Sums   
 https://leetcode.com/problems/find-k-pairs-with-smallest-sums/
 
-
+company : Google Uber
 
 Given two integer arrays sorted in ascending order and an integer k. Define sum = a + b, where a is an element from the first array and b is an element from the second one. Find the kth smallest sum out of all possible sums.
 
