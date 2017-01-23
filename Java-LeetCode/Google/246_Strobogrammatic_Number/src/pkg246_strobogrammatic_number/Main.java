@@ -1,6 +1,4 @@
-/*
- * Copyright 2016 Yuanjie
- */
+
 package pkg246_strobogrammatic_number;
 
 /*
