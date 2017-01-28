@@ -34,10 +34,12 @@ public class Solution {
       Stack<TreeNode> stack = new Stack<>();
       TreeNode curr = root;
       while (curr != null || !stack.isEmpty()) {
+         // traverse the left 
          while (curr != null) {
             stack.push(curr);
             curr = curr.left;
          }
+         // add the curr node then going right
          curr = stack.pop();
          ans.add(curr.val);
          curr = curr.right;
