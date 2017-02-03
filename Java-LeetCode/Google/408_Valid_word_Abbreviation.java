@@ -18,3 +18,40 @@ Given s = "apple", abbr = "a2e":
 
 Return false.
 */
+
+
+public class Solution {
+    public boolean validWordAbbreviation(String word, String abbr) {
+        //"internationalization"  "i5a11o1" true
+        // "a"  "01" false
+        char[] s = word.toCharArray();
+        char[] abb = abbr.toCharArray();
+        
+        int i = 0, j = 0;
+        while (i < s.length && j < abb.length) {
+            if (s[i] == abb[j]) {
+                i++;
+                j++;
+            } else {
+                if (abb[j] <= '0' || abb[j] > '9') {
+                    return false;
+                } else {
+                    int num = abb[j++] - '0';
+                    while (j < abb.length && abb[j] >= '0' && abb[j] <= '9') {
+                        num = num * 10 + (abb[j] - '0');
+                        System.out.println(num);
+                        j++;
+                    }
+                    i += num;
+                 }
+            }
+        } 
+        
+        
+        if (i == s.length && j == abb.length) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
