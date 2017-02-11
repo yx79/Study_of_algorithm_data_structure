@@ -57,14 +57,12 @@ public class Solution {
         }
     }
     public ArrayList<ArrayList<Integer>> buildingOutline(int[][] buildings) {
-        // write your code here
+
         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
         if (buildings == null || buildings.length == 0 || buildings[0].length == 0) {
             return ans;
         }
-        // 1 3 3
-        // 2 4 4
-        // 5 6 1
+        
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(1, new Comparator<Integer>(){
             @Override
             public int compare(Integer a, Integer b) {
