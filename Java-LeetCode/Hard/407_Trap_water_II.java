@@ -24,7 +24,6 @@ Hide Similar Problems (H) Trapping Rain Water
 */
 
 
-
 public class Solution {
     public class Block {
         int x, y, height;
@@ -61,46 +60,33 @@ public class Solution {
             minHeap.add(new Block(M - 1, j, heightMap[M - 1][j]));
         }
         
+        int[] dx = {0, 0, 1, -1};
+        int[] dy = {1, -1, 0, 0};
         int water = 0;
         while (!minHeap.isEmpty()) {
             Block edge = minHeap.poll();
             int x = edge.x;
             int y = edge.y;
-            int height = edge.height;
-            int[] dx = {0, 0, 1, -1};
-            int[] dy = {1, -1, 0, 0};
+            int h = edge.height;
+            
             for (int i = 0; i < 4; i++) {
                 int nx = dx[i] + x;
                 int ny = dy[i] + y;
-                water += dfs(visit, heightMap, nx, ny, height, minHeap);
+                if (nx <= 0 || ny <= 0 || nx >= M || ny >= N || visit[nx][ny] == true) {
+                    continue;
+                }
+                visit[nx][ny] = true;
+                int nh = heightMap[nx][ny];
+                 
+                minHeap.add(new Block(nx, ny, Math.max(h, nh)));
+                water += Math.max(0, h - nh);
+                
             }
-        }
-        return water;
-    }
-    
-    public int dfs(boolean[][] visit, int[][] heightMap, int x, int y, int height, PriorityQueue<Block> minHeap) {
-        if (x < 0 || y < 0 || x >= heightMap.length || y >= heightMap[0].length || visit[x][y] == true) {
-            return 0;
+            
         }
         
-        visit[x][y] = true;
-        if (heightMap[x][y] >= height) {
-            minHeap.add(new Block(x, y, heightMap[x][y]));
-            return 0;
-        } 
+         
         
-        int water = height - heightMap[x][y];
-        
-        int[] dx = {0, 0, 1, -1};
-        int[] dy = {1, -1, 0, 0};
-        for (int i = 0; i < 4; i++) {
-            int nx = dx[i] + x;
-            int ny = dy[i] + y;
-            if (visit[nx][ny] == true) {
-                continue;
-            }
-            water += dfs(visit, heightMap, nx, ny, height, minHeap);
-        }
         return water;
     }
 }
